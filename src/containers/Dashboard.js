@@ -14,7 +14,7 @@ export const filteredBills = (data, status) => {
               if (typeof jest !== "undefined") {
                   selectCondition = bill.status === status;
               } else {
-              /* istanbul ignore next */
+                  /* istanbul ignore next */
                   // in prod environment
                   const userEmail = JSON.parse(
                       localStorage.getItem("user")
@@ -98,8 +98,7 @@ export default class {
             $("#modaleFileAdmin1").modal("show");
     };
 
-    handleEditTicket (e, bill, bills) {
-        
+    handleEditTicket(e, bill, bills) {
         //--bug fixed
         e.stopImmediatePropagation();
         //--bug fixed

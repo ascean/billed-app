@@ -1,0 +1,23 @@
+//recup localStorage du mock 
+Object.defineProperty(window, "localStorage", {
+    value: localStorageMock,
+});
+
+//définit le localStorage avec les données user
+window.localStorage.setItem(
+    "user",
+    JSON.stringify({
+        type: "Employee",
+    })
+);
+
+// défini le chemin d'accès
+      const onNavigate = (pathname) => {
+        document.body.innerHTML = ROUTES({ pathname })
+      }
+
+ // empêche erreur jQuery
+ $.fn.modal = jest.fn(); 
+
+
+pour utiliser .toHaveClass, ajouter : import '@testing-library-dom'

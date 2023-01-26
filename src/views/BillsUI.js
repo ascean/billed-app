@@ -20,26 +20,25 @@ const row = (bill) => {
   }
 
 const rows = (data) => {
-    return (data && data.length)
-        ? data
+    
+    if (!data || data.length === 0) return ""
+    //--fixed bug
+    if (data[0].originalDate) {
+        data.sort((a, b) => (a.originalDate < b.originalDate ? 1 : -1));
+    } else {
+        data.sort((a, b) => (a.date < b.date ? 1 : -1));
+    }
+    //--fixed bug
+    return data
         .map(bill => row(bill))
         .join("")
-        : ""
-    }
     
+}
+        
 export default ({ data: bills, loading, error }) => {
     
-    //-- fixed bug
-    if (bills && bills.length) {
-        for (let i = 0; i < bills.length; i++) {
-            bills[i].originalDate = bills[i].date;
-        }   
-        bills.sort((a, b) => (a.originalDate < b.originalDate ? 1 : -1))
-    }
-    //-- fixed bug
-
     const modal = () => (`
-    <div class="modal fade" id="modaleFile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="modaleFile" data-testid="modaleFileEmployee" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
