@@ -12,17 +12,12 @@ import NewBillUI from "../views/NewBillUI.js";
 import NewBill from "../containers/NewBill.js";
 
 import mockStore from "../__mocks__/store.js";
-
 import { newbill } from "../fixtures/newBill.js";
-
-// mock le store qu'on va utiliser
-// console.log(mockStore);
-// jest.mock('../app/Store.js', () => mockStore)
 
 describe("Given I am connected as an employee", () => {
     describe("When I am on NewBill Page", () => {
         test("Then mail icon in vertical layout should be highlighted", async () => {
-            //recup localStorage du mock
+            //recup localStorageMock
             Object.defineProperty(window, "localStorage", {
                 value: localStorageMock,
             });
@@ -64,8 +59,8 @@ describe("Given I am connected as an employee", () => {
 });
 
 describe("Given I am connected as an employee", () => {
-    describe("When I am on NewBill Page and I select a proof file", () => {
-        test("Then file should be a image file", () => {
+    describe("When I am on NewBill Page and I select a file", () => {
+        beforeEach(() => {
             const html = NewBillUI();
             document.body.innerHTML = html;
 
@@ -80,12 +75,14 @@ describe("Given I am connected as an employee", () => {
                     email: "test@test.fr",
                 })
             );
-
-            jest.mock("../app/Store.js", () => mockStore);
             // défini le chemin d'accès
             const onNavigate = (pathname) => {
                 document.body.innerHTML = ROUTES({ pathname });
             };
+        });
+
+        test("Then file should be a image file", () => {
+            jest.mock("../app/Store.js", () => mockStore);
 
             const newBillContainer = new NewBill({
                 document,
@@ -110,8 +107,7 @@ describe("Given I am connected as an employee", () => {
 
             //ajout de la fonction à tester sur le listener du bouton
             inputFile.addEventListener("change", handleChangeFile);
-            console.log(inputFile.className);
-            console.log(testFile.name);
+
             //upload du fichier test
             userEvent.upload(inputFile, testFile);
 
@@ -122,28 +118,7 @@ describe("Given I am connected as an employee", () => {
             expect(inputFile.files[0].type).toMatch(/jpeg|jpg|png/);
         });
 
-        window.alert = jest.fn();
-
         test("Then an alert message should be displayed if file is not a image file", () => {
-            const html = NewBillUI();
-            document.body.innerHTML = html;
-
-            //to-do write assertion
-            Object.defineProperty(window, "localStorage", {
-                value: localStorageMock,
-            });
-            window.localStorage.setItem(
-                "user",
-                JSON.stringify({
-                    type: "Employee",
-                })
-            );
-
-            // défini le chemin d'accès
-            const onNavigate = (pathname) => {
-                document.body.innerHTML = ROUTES({ pathname });
-            };
-
             const newBillContainer = new NewBill({
                 document,
                 onNavigate,
@@ -159,6 +134,8 @@ describe("Given I am connected as an employee", () => {
             const testFile = new File(["facture.pdf"], "facture.pdf", {
                 type: "application/pdf",
             });
+
+            window.alert = jest.fn();
 
             //création de la fonction à tester
             const handleChangeFile = jest.fn((e) =>
@@ -177,7 +154,7 @@ describe("Given I am connected as an employee", () => {
             //contrôle du type de fichier
             expect(inputFile.files[0].type).not.toMatch(/jpeg|jpg|png/);
             expect(window.alert).toHaveBeenCalledWith(
-                "Seuls les fichiers images sont autorisés (jpg, jpeg ou png)"
+                "Seuls les fichiers de type image sont autorisés (jpg, jpeg ou png)"
             );
             window.alert.mockClear();
         });
@@ -217,41 +194,43 @@ describe("Given I am connected as an employee", () => {
             });
 
             // charge les données dans le formulaire
-            screen.getByTestId('expense-type').value = newbill[0].type
-            screen.getByTestId('expense-name').value = newbill[0].name
-            screen.getByTestId('datepicker').value = newbill[0].date
-            screen.getByTestId('amount').value = newbill[0].amount
-            screen.getByTestId('vat').value = newbill[0].vat
-            screen.getByTestId('pct').value = newbill[0].pct
-            screen.getByTestId('commentary').value = newbill[0].commentary
-            newBillContainer.fileName = newbill[0].fileName
-            newBillContainer.fileUrl = newbill[ 0 ].fileUrl
-            
-            const updateBill = jest.spyOn(newBillContainer, 'updateBill')
-            //création du mock de la fonction à tester
+            screen.getByTestId("expense-type").value = newbill[0].type;
+            screen.getByTestId("expense-name").value = newbill[0].name;
+            screen.getByTestId("datepicker").value = newbill[0].date;
+            screen.getByTestId("amount").value = newbill[0].amount;
+            screen.getByTestId("vat").value = newbill[0].vat;
+            screen.getByTestId("pct").value = newbill[0].pct;
+            screen.getByTestId("commentary").value = newbill[0].commentary;
+            newBillContainer.fileName = newbill[0].fileName;
+            newBillContainer.fileUrl = newbill[0].fileUrl;
+
+            //surveille la fonction updateBill()
+            const updateBill = jest.spyOn(newBillContainer, "updateBill");
+
+            //simule la fonction handleSubmit()
             const handleSubmit = jest.fn((e) =>
-            newBillContainer.handleSubmit(e)
+                newBillContainer.handleSubmit(e)
             );
+
+            //affecte la fonction au submit du form et simule la soumission
             const form = screen.getByTestId("form-new-bill");
             expect(form).toBeTruthy();
             form.addEventListener("submit", handleSubmit);
             fireEvent.submit(form);
-            //vérif que fonction appelée
-            expect(handleSubmit).toHaveBeenCalled();
-
-            expect(updateBill).toHaveBeenCalled()
-
             
+            //vérification de l'appel des fonctions
+            expect(handleSubmit).toHaveBeenCalled();
+            expect(updateBill).toHaveBeenCalled();
         });
-    })
-})
+    });
+});
 
 describe("Given I am a user connected as Employee", () => {
     describe("When I navigate to New Bill", () => {
         describe("When an error occurs on API", () => {
             beforeEach(() => {
                 jest.spyOn(mockStore, "bills");
-                
+
                 Object.defineProperty(window, "localStorage", {
                     value: localStorageMock,
                 });
@@ -266,10 +245,10 @@ describe("Given I am a user connected as Employee", () => {
                 root.setAttribute("id", "root");
                 document.body.appendChild(root);
                 router();
-
-
             });
+            //test API error 404
             test("fetches bills from an API and fails with 404 message error", async () => {
+                //remplace l'implémentation de mockStore.bills() afin qu'elle retourne une promesse rejetée avec message d'erreur
                 mockStore.bills.mockImplementationOnce(() => {
                     return {
                         update: () => {
@@ -278,12 +257,15 @@ describe("Given I am a user connected as Employee", () => {
                     };
                 });
                 window.onNavigate(ROUTES_PATH.Bills);
+                //invoque la promesse avant le démarrage du prochain tick
                 await new Promise(process.nextTick);
-                expect(screen.getAllByText('Erreur')).toBeTruthy()
-            
+                //verification de la présence du texte Erreur
+                expect(screen.getAllByText("Erreur")).toBeTruthy();
             });
-
+            
+            //test API error 500
             test("fetches messages from an API and fails with 500 message error", async () => {
+                //remplace l'implémentation de mockStore.bills() afin qu'elle retourne une promesse rejetée avec message d'erreur
                 mockStore.bills.mockImplementationOnce(() => {
                     return {
                         list: () => {
@@ -293,10 +275,11 @@ describe("Given I am a user connected as Employee", () => {
                 });
 
                 window.onNavigate(ROUTES_PATH.Bills);
+                //invoque la promesse avant le démarrage du prochain tick
                 await new Promise(process.nextTick);
-                expect(screen.getAllByText('Erreur')).toBeTruthy()
-            
+                //verification de la présence du texte Erreur
+                expect(screen.getAllByText("Erreur")).toBeTruthy();
             });
         });
     });
-})
+});

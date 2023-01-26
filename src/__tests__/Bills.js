@@ -192,7 +192,11 @@ describe("Given I am a user connected as Employee", () => {
     });
 
     describe("When an error occurs on API", () => {
+
+        //A exécuter avant chaque test
         beforeEach(() => {
+
+            //surveille la fonction mockStore.bills
             jest.spyOn(mockStore, "bills");
 
             Object.defineProperty(window, "localStorage", {
@@ -210,8 +214,10 @@ describe("Given I am a user connected as Employee", () => {
             document.body.appendChild(root);
             router();
         });
+
         //test API error 404
         test("fetches bills from an API and fails with 404 message error", async () => {
+            //remplace l'implémentation de mockStore.bills() afin qu'elle retourne une promesse rejetée avec message d'erreur
             mockStore.bills.mockImplementationOnce(() => {
                 return {
                     list: () => {
@@ -220,12 +226,15 @@ describe("Given I am a user connected as Employee", () => {
                 };
             });
             window.onNavigate(ROUTES_PATH.Bills);
+            //invoque la promesse avant le démarrage du prochain tick
             await new Promise(process.nextTick);
+            //verification de la présence du texte Erreur
             expect(screen.getAllByText("Erreur")).toBeTruthy();
         });
-
+        
         //test API error 500
         test("fetches messages from an API and fails with 500 message error", async () => {
+            //remplace l'implémentation de mockStore.bills() afin qu'elle retourne une promesse rejetée avec message d'erreur
             mockStore.bills.mockImplementationOnce(() => {
                 return {
                     list: () => {
@@ -233,9 +242,11 @@ describe("Given I am a user connected as Employee", () => {
                     },
                 };
             });
-
+            
             window.onNavigate(ROUTES_PATH.Bills);
+            //invoque la promesse avant le démarrage du prochain tick
             await new Promise(process.nextTick);
+            //verification de la présence du texte Erreur
             expect(screen.getAllByText("Erreur")).toBeTruthy();
         });
     });

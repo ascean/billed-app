@@ -26,7 +26,6 @@ export default class {
     };
 
     handleClickIconEye = (icon) => {
-        console.log(icon);
         const billUrl = icon.getAttribute("data-bill-url");
         const imgWidth = Math.floor($("#modaleFile").width() * 0.5);
         $("#modaleFile")
@@ -57,7 +56,7 @@ export default class {
                             } catch (e) {
                                 // if for some reason, corrupted data was introduced, we manage here failing formatDate function
                                 // log the error and return unformatted date in that case
-                                //console.log(e, "for", doc);
+                                console.log(e, "for", doc);
                                 return {
                                     ...doc,
                                     //--fixed bug
@@ -68,7 +67,6 @@ export default class {
                                 };
                             }
                         })
-                    console.log(bills);
                     return bills;
                 });
         }

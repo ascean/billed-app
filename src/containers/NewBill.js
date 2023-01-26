@@ -28,7 +28,7 @@ export default class NewBill {
         //---bug fixed
         const types = [ "image/jpg", "image/jpeg", "image/png" ]
         if (!types.includes(file.type)) {
-            alert("Seuls les fichiers images sont autorisés (jpg, jpeg ou png)")
+            alert("Seuls les fichiers de type image sont autorisés (jpg, jpeg ou png)")
             e.target.value = ""
             return
         }
@@ -50,7 +50,6 @@ export default class NewBill {
                 }
             })
             .then(({ fileUrl, key }) => {
-                console.log(fileUrl)
                 this.billId = key
                 this.fileUrl = fileUrl
                 this.fileName = fileName
