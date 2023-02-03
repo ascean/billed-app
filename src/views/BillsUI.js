@@ -20,7 +20,6 @@ const row = (bill) => {
   }
 
 const rows = (data) => {
-    
     if (!data || data.length === 0) return ""
     //--fixed bug
     if (data[0].originalDate) {
@@ -32,7 +31,6 @@ const rows = (data) => {
     return data
         .map(bill => row(bill))
         .join("")
-    
 }
         
 export default ({ data: bills, loading, error }) => {

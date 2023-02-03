@@ -226,10 +226,10 @@ describe("Given I am a user connected as Employee", () => {
                 };
             });
             window.onNavigate(ROUTES_PATH.Bills);
-            //invoque la promesse avant le démarrage du prochain tick
             await new Promise(process.nextTick);
+            const message = await screen.getByText(/Erreur 404/);
             //verification de la présence du texte Erreur
-            expect(screen.getAllByText("Erreur")).toBeTruthy();
+            expect(message).toBeTruthy();
         });
         
         //test API error 500
@@ -244,10 +244,10 @@ describe("Given I am a user connected as Employee", () => {
             });
             
             window.onNavigate(ROUTES_PATH.Bills);
-            //invoque la promesse avant le démarrage du prochain tick
             await new Promise(process.nextTick);
+            const message = await screen.getByText(/Erreur 500/);
             //verification de la présence du texte Erreur
-            expect(screen.getAllByText("Erreur")).toBeTruthy();
+            expect(message).toBeTruthy();
         });
     });
 });
