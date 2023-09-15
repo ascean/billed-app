@@ -1,30 +1,30 @@
 # BILLED-APP
 Debug et test d'un SaaS RH
 
-## L'architecture du projet :
+## Architecture du projet :
 Le projet frontend est connecté à un service API backend qui est également lancé en local.
 Le projet backend se trouve à l'adresse suivante : https://github.com/OpenClassrooms-Student-Center/Billed-app-FR-back
 
 ## Organisation :
 Cloner le projet backend dans un dossier bill-app :
 ```
-$ git clone https://github.com/OpenClassrooms-Student-Center/Billed-app-FR-Back.git
+git clone https://github.com/OpenClassrooms-Student-Center/Billed-app-FR-Back.git
 ```
 
 Cloner le projet frontend dans le dossier bill-app :
 ```
-$ git clone https://github.com/OpenClassrooms-Student-Center/Billed-app-FR-Front.git
+git clone https://github.com/OpenClassrooms-Student-Center/Billed-app-FR-Front.git
 ```
 
 ## Lancement de  l'application en local
 
 ### étape 1 - Lancer le backend :
 
-Suivre les indications dans le README du projet backend.
+Suivre les indications dans le [README](https://github.com/OpenClassrooms-Student-Center/Billed-app-FR-back#readme) du projet backend 
 
 ### étape 2 - Lancer le frontend :
 
-Se rendre au repo cloné :
+Se rendre sur le repo cloné :
 ```
 $ cd Billed-app-FR-Front
 ```
