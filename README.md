@@ -4,65 +4,54 @@ Le projet frontend est connecté à un service API backend qui est également la
 Le projet backend se trouve à l'adresse suivante : https://github.com/OpenClassrooms-Student-Center/Billed-app-FR-back
 
 ## Organisation :
-Clonez le projet backend dans un dossier bill-app :
+Cloner le projet backend dans un dossier bill-app :
 ```
 $ git clone https://github.com/OpenClassrooms-Student-Center/Billed-app-FR-Back.git
 ```
 
-```
-bill-app/
-   - Billed-app-FR-Back
-```
-
-Clonez le projet frontend dans le dossier bill-app :
+Cloner le projet frontend dans le dossier bill-app :
 ```
 $ git clone https://github.com/OpenClassrooms-Student-Center/Billed-app-FR-Front.git
 ```
 
-```
-bill-app/
-   - Billed-app-FR-Back
-   - Billed-app-FR-Front
-```
-
-## Comment lancer l'application en local ?
+## Lancement de  l'application en local
 
 ### étape 1 - Lancer le backend :
 
-Suivez les indications dans le README du projet backend.
+Suivre les indications dans le README du projet backend.
 
 ### étape 2 - Lancer le frontend :
 
-Allez au repo cloné :
+Se rendre au repo cloné :
 ```
 $ cd Billed-app-FR-Front
 ```
 
-Installez les packages npm (décrits dans `package.json`) :
+Installer les packages npm (décrits dans `package.json`) :
 ```
 $ npm install
 ```
 
-Installez live-server pour lancer un serveur local :
+Installer live-server pour lancer un serveur local :
 ```
 $ npm install -g live-server
 ```
 
-Lancez l'application :
+Lancer l'application :
 ```
 $ live-server
 ```
 
-Puis allez à l'adresse : `http://127.0.0.1:8080/`
+Puis se rendre à l'adresse : `http://127.0.0.1:8080/`
 
 
-## Comment lancer tous les tests en local avec Jest ?
+## Lancer tous les tests en local avec Jest
 
 ```
 $ npm run test
 ```
 
-## Comment lancer un seul test ?
+## Lancer un seul test
 
 Installez jest-cli :
 
@@ -71,13 +60,13 @@ $npm i -g jest-cli
 $jest src/__tests__/your_test_file.js
 ```
 
-## Comment voir la couverture de test ?
+## Visualiser la couverture de test
 
 `http://127.0.0.1:8080/coverage/lcov-report/`
 
 ## Comptes et utilisateurs :
 
-Vous pouvez vous connecter en utilisant les comptes:
+Connexion possible avec les comptes suivants :
 
 ### administrateur : 
 ```
